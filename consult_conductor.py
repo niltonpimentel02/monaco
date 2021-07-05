@@ -1,7 +1,7 @@
 import os
 import shutil
 import requests
-import pprint as pp
+from pprint import pprint as pp
 from twocaptcha import TwoCaptcha
 from datetime import datetime
 from decouple import config
@@ -28,18 +28,18 @@ result_code = result['code']
 if os.path.exists("img.png"):
   os.remove("img.png")
 else:
-  pp.pprint("The file does not exist")
+  pp("The file does not exist")
 
 # Post on page
-payload = {'txtDocPrincipal': '04601616956', 'txtDocCNH': '03951668042'}
+payload = {'txtDocPrincipal': '04601616956', 'txtDocCNH': '03951668042', 'txtCodigo': f'{result_code}'}
 r = requests.post('http://consultas.detrannet.sc.gov.br/servicos/ConsultaPontuacaoCondutor.asp', data=payload)
 
 # if 'CONSULTA PONTUAÇÃO' not in r.text:
-#     print('Texto não encontrado')
+#     pp('Texto não encontrado')
 # else:
-#     print('Texto encontrado! Ok!!')
+#     pp('Texto encontrado! Ok!!')
 
 if 'É necessário informar o código.' not in r.text:
-    print('Texto não encontrado')
+    pp('Texto não encontrado')
 else:
-    print('Texto encontrado! Ok!!')
+    pp('Texto encontrado! Ok!!')
