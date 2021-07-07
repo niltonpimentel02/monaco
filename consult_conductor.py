@@ -19,19 +19,25 @@ try:
 
     sleep(1)
 
-    # Download captcha image
+    """
+    Download captcha image
+    """
     captcha_photo = browser.find_element_by_xpath('//img[@id="imgDesafio"]')
 
     sleep(2)
 
     captcha_photo.screenshot('img.png')
 
-    # Solve captcha
+    """
+    Solve captcha
+    """
     solver = TwoCaptcha(config('2_CAPCHA_API_KEY'))
     result = solver.normal('img.png')
     result_code = result['code']
 
-    # Delete photo downloaded above
+    """
+    Delete photo downloaded above
+    """
     if os.path.exists('img.png'):
         os.remove('img.png')
         print('The file was deleted successfully')
@@ -55,7 +61,6 @@ try:
 
     data = browser.find_elements_by_xpath('//tr[@width="100%"]')
 
-
     content = OrderedDict(
         data_time=data[0].text,
         data_conductor=data[1].text,
@@ -68,7 +73,9 @@ try:
     pp(type(content))
     pp('========================================================================')
 
-    # WIP - Work In Progress
+    """
+    WIP - Work In Progress
+    """
     data_detail = browser.find_elements_by_xpath('//*[@id="divDadosPontuacao"]/table[2]/tbody/tr')
     for elements in data_detail:
         print(elements.text)
